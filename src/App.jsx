@@ -123,7 +123,7 @@ function App() {
 
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-screen bg-[#121213] overscroll-contain" >
+    <div className="flex flex-col justify-center items-center h-screen w-screen bg-[#121213]" >
       <h1 className="font-extrabold text-6xl text-white">WORDLE CLONE</h1>
       <GridColourContext.Provider value={gridColours}>
         <div className="gap-[.35rem] flex flex-col mt-8 mb-4">
