@@ -6,14 +6,14 @@ const keyboardCharacters = [
     ['ENTER', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BACKSPACE']
 ];
 
-function Keyboard() {
+function Keyboard({ handleKeyDown }) {
 
   return (
     <div className="flex flex-col w-full h-full items-center justify-between gap-2">
         {keyboardCharacters.map((row) => (
             <div className="flex justify-center gap-[.35rem]" key={row}>
                 {row.map((character) => (
-                    <Key character={character} key={character}/>
+                    <Key character={character} key={character} handleKeyDown={handleKeyDown}/>
                 ))}
             </div>
         ))}

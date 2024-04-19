@@ -41,7 +41,8 @@ function App() {
   }, [isValidWord])
 
   const handleKeyDown = useCallback((event) => {
-    const key = event.key.toUpperCase();
+
+    const key = event.key ? event.key.toUpperCase() : event.target.id
 
     if (!checkAlphabetic(key)) return
 
@@ -133,7 +134,7 @@ function App() {
       </GridColourContext.Provider>
       <div id="keyboard" className="">
           <KeyboardContext.Provider value={keyboardColours}>
-            <Keyboard />
+            <Keyboard handleKeyDown={handleKeyDown}/>
           </KeyboardContext.Provider>
       </div>
     </div>

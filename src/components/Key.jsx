@@ -24,7 +24,7 @@ const backgroundStyle = {
   }
 }
 
-function Key({ character }) {
+function Key({ character, handleKeyDown }) {
 
   const keyboardColours = useContext(KeyboardContext);
   const [colour, setColour] = useState('light_grey')
@@ -47,8 +47,10 @@ function Key({ character }) {
     ? "text-white h-[58px] w-[68px] rounded-[4px] flex justify-center items-center text-xs font-[600]"
     : "text-white h-[58px] w-11 rounded-[4px] flex justify-center items-center text-xl font-[600]"}
     style={backgroundStyle[colour]}
+    onClick={handleKeyDown}
+    id={character}
     >
-        {character === 'BACKSPACE' ? <BackspaceOutlinedIcon fontSize='small' /> : character}
+        {character === 'BACKSPACE' ? <BackspaceOutlinedIcon fontSize='small' className='pointer-events-none'/> : character}
     </button>
     
   )
