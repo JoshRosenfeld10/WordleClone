@@ -37,8 +37,8 @@ function Key({ character, handleKeyDown }) {
 
   return (
     <button className={character === 'ENTER' || character === 'BACKSPACE'
-    ? "text-white h-[58px] w-[68px] rounded-[4px] flex justify-center items-center text-xs font-[600]"
-    : "text-white h-[58px] w-11 rounded-[4px] flex justify-center items-center text-xl font-[600]"}
+    ? "text-white sm:h-[58px] sm:w-[68px] w-[50.5px] h-[42px] rounded-[4px] flex justify-center items-center text-xs font-[600]"
+    : "text-white sm:h-[58px] sm:w-11 w-8 h-[42px] rounded-[4px] flex justify-center items-center sm:text-xl text-base font-[600]"}
     style={backgroundStyle[colour]}
     onClick={handleKeyDown}
     id={character}

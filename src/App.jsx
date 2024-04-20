@@ -134,7 +134,7 @@ function App() {
       <CSSTransition timeout={500} in={gameOver} classNames="message" unmountOnExit>
         <Message word={word} winner={winner}/>
       </CSSTransition>
-      <h1 className="font-extrabold text-6xl text-white">WORDLE CLONE</h1>
+      <h1 className="font-extrabold sm:text-6xl text-4xl text-white">WORDLE CLONE</h1>
       <GridColourContext.Provider value={gridColours}>
         <div className="gap-[.35rem] flex flex-col mt-8 mb-4">
           {wordGuesses.grid.map((word, idx) => (
