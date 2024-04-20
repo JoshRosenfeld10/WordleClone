@@ -144,7 +144,7 @@ function App() {
       </GridColourContext.Provider>
       <div id="keyboard" className="">
         <KeyboardContext.Provider value={keyboardColours}>
-          <Keyboard handleKeyDown={handleKeyDown}/>
+          <Keyboard handleKeyDown={!gameOver ? handleKeyDown : () => {}}/>
         </KeyboardContext.Provider>
       </div>
     </div>
