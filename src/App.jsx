@@ -134,7 +134,7 @@ function App() {
       <CSSTransition timeout={500} in={gameOver} classNames="message" unmountOnExit>
         <Message word={word} winner={winner}/>
       </CSSTransition>
-      <h1 className="font-extrabold sm:text-6xl text-4xl text-white">WORDLE CLONE</h1>
+      <h1 className="font-extrabold sm:text-6xl text-5xl text-white">WORDLE CLONE</h1>
       <GridColourContext.Provider value={gridColours}>
         <div className="gap-[.35rem] flex flex-col mt-8 mb-4">
           {wordGuesses.grid.map((word, idx) => (
@@ -147,6 +147,7 @@ function App() {
           <Keyboard handleKeyDown={!gameOver ? handleKeyDown : () => {}}/>
         </KeyboardContext.Provider>
       </div>
+      <h1 className="text-[#565758] absolute bottom-5">© Josh Rosenfeld</h1>
     </div>
   )
 }
