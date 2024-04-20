@@ -2,13 +2,6 @@ import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined';
 import { KeyboardContext } from '../App';
 import { useContext, useEffect, useState } from 'react';
 
-/* 
-Light Grey: #808384
-Dark Grey: #3a3a3c
-Green: #538d4e
-Yellow: #b49f3a
-*/
-
 const backgroundStyle = {
   light_grey: {
     backgroundColor: '#808384'

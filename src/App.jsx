@@ -2,7 +2,7 @@ import WordGuess from "./components/WordGuess";
 import getWord from "../utils/getRandomWord"
 import enterKey from "../utils/enterKey";
 import checkAlphabetic from "../utils/checkAlphabetic"
-import { createContext, useCallback, useEffect, useRef, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import wordInput from "../utils/wordInput";
 import Keyboard from "./components/Keyboard";
 import Message from "./components/Message";

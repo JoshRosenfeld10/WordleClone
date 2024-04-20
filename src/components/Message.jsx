@@ -1,6 +1,5 @@
-import { useRef, useState } from "react";
+import { useRef} from "react";
 import Confetti from "./Confetti";
-import { CSSTransition } from "react-transition-group";
 import '../index.css';
 
 const randomItem = (items) => {
