@@ -2,10 +2,12 @@ import WordGuess from "./components/WordGuess";
 import getWord from "../utils/getRandomWord"
 import enterKey from "../utils/enterKey";
 import checkAlphabetic from "../utils/checkAlphabetic"
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useRef, useState } from "react";
 import wordInput from "../utils/wordInput";
 import Keyboard from "./components/Keyboard";
 import Message from "./components/Message";
+import './index.css'
+import { CSSTransition } from "react-transition-group";
 
 export const GridColourContext = createContext();
 export const KeyboardContext = createContext();
@@ -35,6 +37,8 @@ function App() {
   const [keyboardColours, setKeyboardColours] = useState({});
   const [isValidWord, setIsValidWord] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [winner, setWinner] = useState(false);
+  const nodeRef = useRef(null);
 
   // Handle valid word check
   useEffect(() => {
@@ -118,14 +122,19 @@ function App() {
           break;
         }
       }
-      solved && setGameOver(true);
+      if (solved){
+        setGameOver(true);
+        setWinner(true);
+      }
     })
   }, [gridColours])
 
 
   return (
     <div className="flex flex-col justify-center items-center h-screen w-screen bg-[#121213]" >
-      <Message word={word} winner={true}/>
+      <CSSTransition timeout={500} in={gameOver} classNames="message" unmountOnExit>
+        <Message word={word} winner={winner}/>
+      </CSSTransition>
       <h1 className="font-extrabold text-6xl text-white">WORDLE CLONE</h1>
       <GridColourContext.Provider value={gridColours}>
         <div className="gap-[.35rem] flex flex-col mt-8 mb-4">

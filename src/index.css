@@ -5,3 +5,16 @@
 body {
     background-color: #121213;
 }
+
+.message-enter {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.message-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition-property: all;
+    transition-duration: 300ms;
+    transition-timing-function: linear;
+}
