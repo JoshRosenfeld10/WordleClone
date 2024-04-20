@@ -147,7 +147,7 @@ function App() {
           <Keyboard handleKeyDown={!gameOver ? handleKeyDown : () => {}}/>
         </KeyboardContext.Provider>
       </div>
-      <h1 className="text-[#565758] absolute bottom-5">© Josh Rosenfeld</h1>
+      <h1 className="text-[#565758] mt-5">© Josh Rosenfeld</h1>
     </div>
   )
 }
