@@ -20,7 +20,7 @@ const loserMessages = [
     'Idiot!',
     'What the hell are you doing?',
     'Are you stupid?',
-    'Better luck next time!'
+    'That was embarrassing...'
 ];
 
 function Message({ winner, word }) {
