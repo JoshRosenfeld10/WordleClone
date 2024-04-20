@@ -5,6 +5,7 @@ import checkAlphabetic from "../utils/checkAlphabetic"
 import { createContext, useCallback, useEffect, useState } from "react";
 import wordInput from "../utils/wordInput";
 import Keyboard from "./components/Keyboard";
+import Message from "./components/Message";
 
 export const GridColourContext = createContext();
 export const KeyboardContext = createContext();
@@ -124,6 +125,7 @@ function App() {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen w-screen bg-[#121213]" >
+      <Message word={word} winner={true}/>
       <h1 className="font-extrabold text-6xl text-white">WORDLE CLONE</h1>
       <GridColourContext.Provider value={gridColours}>
         <div className="gap-[.35rem] flex flex-col mt-8 mb-4">
@@ -133,9 +135,9 @@ function App() {
         </div>
       </GridColourContext.Provider>
       <div id="keyboard" className="">
-          <KeyboardContext.Provider value={keyboardColours}>
-            <Keyboard handleKeyDown={handleKeyDown}/>
-          </KeyboardContext.Provider>
+        <KeyboardContext.Provider value={keyboardColours}>
+          <Keyboard handleKeyDown={handleKeyDown}/>
+        </KeyboardContext.Provider>
       </div>
     </div>
   )
