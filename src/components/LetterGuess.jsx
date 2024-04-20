@@ -11,7 +11,7 @@ const letterClasses = {
 
 function LetterGuess({ letter, letterState }) {
   return (
-    <div className={letterClasses[letterState]}>
+    <div className={letterClasses[letterState]} id={(letter && letterState === 'blank') ? "letter-filled" : ""}>
       {letter}
     </div>
   )

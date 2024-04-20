@@ -21,7 +21,7 @@ body {
 
 .letter-reveal {
     border-width: 2px;
-    border-color: #3a3a3c;
+    border-color: #565758;
     animation: flip 0.8s ease-in-out forwards, colourChange 0.8s steps(1) forwards;
 }
 
@@ -53,11 +53,15 @@ body {
     --background: #3a3a3c;
 }
 
+#letter-filled {
+    border-color: #565758;
+    animation: bounce 0.1s linear 0s forwards;
+}
+
 
 @keyframes flip {
     0% {
         transform: rotateX(0);
-
     }
     45% {
         transform: rotateX(90deg);
@@ -73,7 +77,7 @@ body {
 @keyframes colourChange {
     0% {
         border-width: 2px;
-        border-color: #3a3a3c;
+        border-color: #565758;
     }
     50% {
         background-color: var(--background);
@@ -83,4 +87,16 @@ body {
         background-color: var(--background);
         border-width: 0;
     }
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    } 
 }
