@@ -38,7 +38,6 @@ function App() {
   const [isValidWord, setIsValidWord] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [winner, setWinner] = useState(false);
-  const nodeRef = useRef(null);
 
   // Handle valid word check
   useEffect(() => {

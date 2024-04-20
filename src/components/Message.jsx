@@ -30,7 +30,7 @@ function Message({ winner, word }) {
     const loserMessage = useRef(randomItem(loserMessages));
 
   return (
-    <div className="flex flex-col justify-center items-center absolute bg-white/90 w-[500px] py-6 rounded-xl shadow-xl">
+    <div className="flex flex-col justify-center items-center absolute bg-white/90 w-[500px] py-6 rounded-xl shadow-xl z-10">
         {winner && <Confetti />}
         <h1 className="text-7xl">{winner ? winnerEmoji.current : loserEmoji.current}</h1>
         <h1 className="text-2xl font-[600] mt-2">{winner ? winnerMessage.current : loserMessage.current}</h1>
