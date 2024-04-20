@@ -7,12 +7,10 @@ function WordGuess({ letterGuesses, row }) {
   const gridColours = useContext(GridColourContext);
 
   return (
-    <div className='text-white flex gap-[.35rem]'>
+    <div className='text-white flex gap-[.35rem]' id="row">
         {letterGuesses.map((letter, col) => (
           <LetterGuess letter={letter} key={col} letterState={gridColours[row][col]}/>
         ))}
-        
-        
     </div>
   )
 }

@@ -3,9 +3,9 @@ letterState = green, yellow, grey, blank
 */
 
 const letterClasses = {
-  green: "bg-[#538d4e] w-14 h-14 text-white font-bold text-4xl flex justify-center items-center cursor-default",
-  yellow: "bg-[#b49f3a] w-14 h-14 text-white font-bold text-4xl flex justify-center items-center cursor-default",
-  grey: "bg-[#3a3a3c] w-14 h-14 text-white font-bold text-4xl flex justify-center items-center cursor-default",
+  green: "greenLetter w-14 h-14 text-white font-bold text-4xl flex justify-center items-center cursor-default letter-reveal",
+  yellow: "yellowLetter w-14 h-14 text-white font-bold text-4xl flex justify-center items-center cursor-default letter-reveal",
+  grey: "greyLetter w-14 h-14 text-white font-bold text-4xl flex justify-center items-center cursor-default letter-reveal",
   blank: "border-2 border-[#3a3a3c] w-14 h-14 text-white font-bold text-4xl flex justify-center items-center cursor-default"
 }
 
