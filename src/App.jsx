@@ -38,10 +38,11 @@ function App() {
   const [isValidWord, setIsValidWord] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [winner, setWinner] = useState(false);
+  const [invalidWordMessage, setInvalidWordMessage] = useState(false);
 
   // Handle valid word check
   useEffect(() => {
-    wordInput(isValidWord, wordGuesses, setWordGuesses, word, setGridColours, setKeyboardColours, keyboardColours);
+    wordInput(isValidWord, wordGuesses, setWordGuesses, word, setGridColours, setKeyboardColours, keyboardColours, setInvalidWordMessage);
   }, [isValidWord])
 
   const handleKeyDown = useCallback((event) => {
@@ -57,7 +58,7 @@ function App() {
       let row = prev.row;
       let col = prev.col;
 
-      enterKey(key, grid, row, col, setIsValidWord);
+      enterKey(key, grid, row, col, setIsValidWord, setInvalidWordMessage);
       
       if (key === 'BACKSPACE' && col !== 0) {
         col--;
@@ -134,11 +135,16 @@ function App() {
       <CSSTransition timeout={500} in={gameOver} classNames="message" unmountOnExit>
         <Message word={word} winner={winner}/>
       </CSSTransition>
+      <CSSTransition timeout={200} in={invalidWordMessage} classNames="invalid" onEntered={() => setTimeout(() => { setInvalidWordMessage(false) }, 1500)} unmountOnExit>
+        <div className="text-black bg-white absolute text-lg font-bold p-2 rounded-lg shadow-lg sm:top-[15%] top-[20%] z-10">
+          Invalid Word 🤔
+        </div>
+      </CSSTransition>
       <h1 className="font-extrabold sm:text-6xl text-5xl text-white">WORDLE CLONE</h1>
       <GridColourContext.Provider value={gridColours}>
         <div className="gap-[.35rem] flex flex-col mt-8 mb-4">
           {wordGuesses.grid.map((word, idx) => (
-            <WordGuess letterGuesses={word} row={idx} key={idx}/>
+            <WordGuess letterGuesses={word} row={idx} key={idx} invalidWordMessage={invalidWordMessage} currentRow={wordGuesses.row}/>
           ))}
         </div>
       </GridColourContext.Provider>
