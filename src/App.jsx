@@ -108,11 +108,6 @@ function App() {
 
   // Check game over
   useEffect(() => {
-    if (wordGuesses.row === 6) {
-      setGameOver(true);
-      return;
-    }
-
     gridColours.forEach(row => {
       let solved = true;
       for (let colour of row) {
@@ -126,6 +121,11 @@ function App() {
         setWinner(true);
       }
     })
+
+    if (wordGuesses.row === 6) {
+      setGameOver(true);
+      return;
+    }
   }, [gridColours])
 
 
