@@ -42,7 +42,7 @@ function App() {
 
   // Handle valid word check
   useEffect(() => {
-    wordInput(isValidWord, wordGuesses, setWordGuesses, word, setGridColours, setKeyboardColours, keyboardColours, setInvalidWordMessage);
+    wordInput(isValidWord, wordGuesses, setWordGuesses, word, setGridColours, setKeyboardColours, keyboardColours);
   }, [isValidWord])
 
   const handleKeyDown = useCallback((event) => {
