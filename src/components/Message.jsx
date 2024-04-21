@@ -18,9 +18,9 @@ const winnerMessages = [
     'Great work!'
 ];
 const loserMessages = [
-    'Idiot!',
-    'What the hell are you doing?',
-    'Are you stupid?',
+    'Uhh...',
+    'That was awful.',
+    'Good effort, I guess.',
     'That was embarrassing...'
 ];
 
