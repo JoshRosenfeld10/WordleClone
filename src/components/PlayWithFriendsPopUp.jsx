@@ -43,7 +43,7 @@ function PlayWithFriendsPopUp({ visible }) {
         <>
           <a
             href={gameLink}
-            className=" underline font-[600] text-blue-600 mt-4 text-sm"
+            className=" underline font-[600] text-blue-600 mt-4 text-sm text-center"
           >
             {gameLink}
           </a>
