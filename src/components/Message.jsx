@@ -53,15 +53,12 @@ function Message({ winner, word }) {
               <span className="font-bold text-lg">{word.toUpperCase()}</span>
             </h1>
           )}
-          <button
-            className="mt-4 bg-green-600 py-2 px-5 rounded-lg font-bold text-lg text-white flex justify-center items-center hover:bg-green-700 transition-all ease-linear duration-100"
-            onClick={() => {
-              location.reload();
-            }}
-          >
-            PLAY AGAIN
-            <ReplayIcon fontSize="small" className="ml-1" />
-          </button>
+          <a href="https://josh-rosenfeld-wordle-clone.vercel.app/">
+            <button className="mt-4 bg-green-600 py-2 px-5 rounded-lg font-bold text-lg text-white flex justify-center items-center hover:bg-green-700 transition-all ease-linear duration-100">
+              PLAY AGAIN
+              <ReplayIcon fontSize="small" className="ml-1" />
+            </button>
+          </a>
         </div>
       )}
     </div>
