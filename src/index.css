@@ -3,144 +3,161 @@
 @tailwind utilities;
 
 body {
-    background-color: #121213;
+  background-color: #121213;
 }
 
 .message-enter {
-    opacity: 0;
-    transform: scale(0.5);
+  opacity: 0;
+  transform: scale(0.5);
 }
 
 .message-enter-active {
-    opacity: 1;
-    transform: translateX(0);
-    transition-property: all;
-    transition-duration: 300ms;
-    transition-timing-function: linear;
+  opacity: 1;
+  transform: translateX(0);
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-timing-function: linear;
+}
+
+.message-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.message-exit-active {
+  opacity: 0;
+  transform: scale(0.5);
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-timing-function: linear;
 }
 
 .letter-reveal {
-    border-width: 2px;
-    border-color: #565758;
-    animation: flip 0.8s ease-in-out forwards, colourChange 0.8s steps(1) forwards;
+  border-width: 2px;
+  border-color: #565758;
+  animation: flip 0.8s ease-in-out forwards, colourChange 0.8s steps(1) forwards;
 }
 
 .invalid-enter {
-    opacity: 0;
-    transform: translateY(10px);
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 .invalid-enter-active {
-    opacity: 1;
-    transition: all 300ms;
-    transform: translateY(0);
+  opacity: 1;
+  transition: all 300ms;
+  transform: translateY(0);
 }
 
 .invalid-exit {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .invalid-exit-active {
-    opacity: 0;
-    transition: all 300ms;
-    transform: translateY(10px);
+  opacity: 0;
+  transition: all 300ms;
+  transform: translateY(10px);
 }
 
 #row div:nth-child(2) {
-    animation-delay: 0.25s;
+  animation-delay: 0.25s;
 }
 
 #row div:nth-child(3) {
-    animation-delay: 0.50s;
+  animation-delay: 0.5s;
 }
 
 #row div:nth-child(4) {
-    animation-delay: 0.75s;
+  animation-delay: 0.75s;
 }
 
 #row div:nth-child(5) {
-    animation-delay: 1.0s;
+  animation-delay: 1s;
 }
 
 .greenLetter {
-    --background: #538d4e;
+  --background: #538d4e;
 }
 
 .yellowLetter {
-    --background: #b49f3a;
+  --background: #b49f3a;
 }
 
 .greyLetter {
-    --background: #3a3a3c;
+  --background: #3a3a3c;
 }
 
 #letter-filled {
-    border-color: #565758;
-    animation: bounce 0.1s linear 0s forwards;
+  border-color: #565758;
+  animation: bounce 0.1s linear 0s forwards;
 }
 
 .row-shake {
-    animation: shake 0.5s ease-out forwards;
+  animation: shake 0.5s ease-out forwards;
 }
 
 @keyframes shake {
-    10%, 90% {
-      transform: translateX(-1px);
-    }
-    
-    20%, 80% {
-      transform: translateX(2px);
-    }
-  
-    30%, 50%, 70% {
-      transform: translateX(-4px);
-    }
-  
-    40%, 60% {
-      transform: translateX(4px);
-    }
+  10%,
+  90% {
+    transform: translateX(-1px);
   }
 
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translateX(-4px);
+  }
+
+  40%,
+  60% {
+    transform: translateX(4px);
+  }
+}
 
 @keyframes flip {
-    0% {
-        transform: rotateX(0);
-    }
-    45% {
-        transform: rotateX(90deg);
-    }
-    55% {
-        transform: rotateX(90deg);
-    }
-    100% {
-        transform: rotateX(0deg);
-    }
+  0% {
+    transform: rotateX(0);
+  }
+  45% {
+    transform: rotateX(90deg);
+  }
+  55% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
 }
 
 @keyframes colourChange {
-    0% {
-        border-width: 2px;
-        border-color: #565758;
-    }
-    50% {
-        background-color: var(--background);
-        border-width: 0;
-    }
-    100% {
-        background-color: var(--background);
-        border-width: 0;
-    }
+  0% {
+    border-width: 2px;
+    border-color: #565758;
+  }
+  50% {
+    background-color: var(--background);
+    border-width: 0;
+  }
+  100% {
+    background-color: var(--background);
+    border-width: 0;
+  }
 }
 
 @keyframes bounce {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    } 
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

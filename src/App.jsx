@@ -1,13 +1,17 @@
 import WordGuess from "./components/WordGuess";
-import getWord from "../utils/getRandomWord"
+import getWord from "../utils/getRandomWord";
 import enterKey from "../utils/enterKey";
-import checkAlphabetic from "../utils/checkAlphabetic"
+import checkAlphabetic from "../utils/checkAlphabetic";
 import { createContext, useCallback, useEffect, useState } from "react";
 import wordInput from "../utils/wordInput";
 import Keyboard from "./components/Keyboard";
 import Message from "./components/Message";
-import './index.css'
+import "./index.css";
 import { CSSTransition } from "react-transition-group";
+import checkSearchParams from "../utils/checkSearchParams";
+import setWordToSearchParam from "../utils/setWordToSearchParam";
+import PlayWithFriendsPopUp from "./components/PlayWithFriendsPopUp";
+import GroupIcon from "@mui/icons-material/Group";
 
 export const GridColourContext = createContext();
 export const KeyboardContext = createContext();
@@ -16,146 +20,204 @@ function App() {
   const [word, setWord] = useState("");
   const [wordGuesses, setWordGuesses] = useState({
     grid: [
-      ['', '', '', '', ''],
-      ['', '', '', '', ''],
-      ['', '', '', '', ''],
-      ['', '', '', '', ''],
-      ['', '', '', '', ''],
-      ['', '', '', '', '']
+      ["", "", "", "", ""],
+      ["", "", "", "", ""],
+      ["", "", "", "", ""],
+      ["", "", "", "", ""],
+      ["", "", "", "", ""],
+      ["", "", "", "", ""],
     ],
     row: 0,
-    col: 0
-  })
+    col: 0,
+  });
   const [gridColours, setGridColours] = useState([
-    ['blank', 'blank', 'blank', 'blank', 'blank'],
-    ['blank', 'blank', 'blank', 'blank', 'blank'],
-    ['blank', 'blank', 'blank', 'blank', 'blank'],
-    ['blank', 'blank', 'blank', 'blank', 'blank'],
-    ['blank', 'blank', 'blank', 'blank', 'blank'],
-    ['blank', 'blank', 'blank', 'blank', 'blank'],
-  ])
+    ["blank", "blank", "blank", "blank", "blank"],
+    ["blank", "blank", "blank", "blank", "blank"],
+    ["blank", "blank", "blank", "blank", "blank"],
+    ["blank", "blank", "blank", "blank", "blank"],
+    ["blank", "blank", "blank", "blank", "blank"],
+    ["blank", "blank", "blank", "blank", "blank"],
+  ]);
   const [keyboardColours, setKeyboardColours] = useState({});
   const [isValidWord, setIsValidWord] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [winner, setWinner] = useState(false);
   const [invalidWordMessage, setInvalidWordMessage] = useState(false);
+  const [playWithFriendsPopUp, setPlayWithFriendsPopUp] = useState(false);
 
   // Handle valid word check
   useEffect(() => {
-    wordInput(isValidWord, wordGuesses, setWordGuesses, word, setGridColours, setKeyboardColours, keyboardColours);
-  }, [isValidWord])
+    wordInput(
+      isValidWord,
+      wordGuesses,
+      setWordGuesses,
+      word,
+      setGridColours,
+      setKeyboardColours,
+      keyboardColours
+    );
+  }, [isValidWord]);
 
-  const handleKeyDown = useCallback((event) => {
+  const handleKeyDown = useCallback(
+    (event) => {
+      const key = event.key ? event.key.toUpperCase() : event.target.id;
 
-    const key = event.key ? event.key.toUpperCase() : event.target.id
+      if (!checkAlphabetic(key)) return;
 
-    if (!checkAlphabetic(key)) return
+      setIsValidWord(false);
 
-    setIsValidWord(false);
+      setWordGuesses((prev) => {
+        let grid = [...prev.grid];
+        let row = prev.row;
+        let col = prev.col;
 
-    setWordGuesses((prev) => {
-      let grid = [ ...prev.grid ];
-      let row = prev.row;
-      let col = prev.col;
+        enterKey(key, grid, row, col, setIsValidWord, setInvalidWordMessage);
 
-      enterKey(key, grid, row, col, setIsValidWord, setInvalidWordMessage);
-      
-      if (key === 'BACKSPACE' && col !== 0) {
-        col--;
-        grid[row][col] = '';
+        if (key === "BACKSPACE" && col !== 0) {
+          col--;
+          grid[row][col] = "";
+          return {
+            ...prev,
+            grid,
+            col,
+          };
+        }
+
+        if (col !== 5 && key !== "BACKSPACE" && key !== "ENTER") {
+          grid[row][col] = key;
+          col++;
+        }
+
         return {
           ...prev,
-          grid,
-          col
-        }
-      }
-
-      if (col !== 5 && key !== 'BACKSPACE' && key !== 'ENTER') {
-        grid[row][col] = key;
-        col++;
-      }
-
-      return {
-        ...prev,
-        grid: grid,
-        row: row,
-        col: col
-      }
-    })
-  }, [setGameOver])
+          grid: grid,
+          row: row,
+          col: col,
+        };
+      });
+    },
+    [setGameOver]
+  );
 
   // Handle keyboard inputs
   useEffect(() => {
-    if (!gameOver) {
-      document.addEventListener('keydown', handleKeyDown);
+    if (!gameOver && !playWithFriendsPopUp) {
+      document.addEventListener("keydown", handleKeyDown);
     } else {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     }
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    }
-  }, [handleKeyDown, gameOver])
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown, gameOver, playWithFriendsPopUp]);
 
   // Fetch random 5 letter word
   useEffect(() => {
-  const fetchData = async () => {
-    const data = await getWord();
-    setWord(data);
-  }
+    if (checkSearchParams()) {
+      setWordToSearchParam(setWord);
+    } else {
+      const fetchData = async () => {
+        const data = await getWord();
+        setWord(data);
+      };
 
-    fetchData();
-  }, [])
+      fetchData();
+    }
+  }, []);
 
   // Check game over
   useEffect(() => {
-    gridColours.forEach(row => {
+    gridColours.forEach((row) => {
       let solved = true;
       for (let colour of row) {
-        if (colour != 'green') {
+        if (colour != "green") {
           solved = false;
           break;
         }
       }
-      if (solved){
+      if (solved) {
         setGameOver(true);
         setWinner(true);
       }
-    })
+    });
 
     if (wordGuesses.row === 6) {
       setGameOver(true);
       return;
     }
-  }, [gridColours])
-
+  }, [gridColours]);
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-screen bg-[#121213]" >
-      <CSSTransition timeout={500} in={gameOver} classNames="message" unmountOnExit>
-        <Message word={word} winner={winner}/>
+    <div className="flex flex-col justify-center items-center h-screen w-screen bg-[#121213]">
+      <CSSTransition
+        timeout={500}
+        in={gameOver}
+        classNames="message"
+        unmountOnExit
+      >
+        <Message word={word} winner={winner} />
       </CSSTransition>
-      <CSSTransition timeout={200} in={invalidWordMessage} classNames="invalid" onEntered={() => setTimeout(() => { setInvalidWordMessage(false) }, 1500)} unmountOnExit>
+      <CSSTransition
+        timeout={500}
+        in={playWithFriendsPopUp}
+        classNames="message"
+        unmountOnExit
+      >
+        <PlayWithFriendsPopUp visible={setPlayWithFriendsPopUp} />
+      </CSSTransition>
+      <CSSTransition
+        timeout={200}
+        in={invalidWordMessage}
+        classNames="invalid"
+        onEntered={() =>
+          setTimeout(() => {
+            setInvalidWordMessage(false);
+          }, 1500)
+        }
+        unmountOnExit
+      >
         <div className="text-black bg-white absolute text-lg font-bold p-2 rounded-lg shadow-lg sm:top-[15%] top-[20%] z-10">
           Invalid Word 🤔
         </div>
       </CSSTransition>
-      <h1 className="font-extrabold sm:text-6xl text-5xl text-white">WORDLE CLONE</h1>
+      <h1 className="font-extrabold sm:text-6xl text-5xl text-white">
+        WORDLE CLONE
+      </h1>
       <GridColourContext.Provider value={gridColours}>
         <div className="gap-[.35rem] flex flex-col mt-8 mb-4">
           {wordGuesses.grid.map((word, idx) => (
-            <WordGuess letterGuesses={word} row={idx} key={idx} invalidWordMessage={invalidWordMessage} currentRow={wordGuesses.row}/>
+            <WordGuess
+              letterGuesses={word}
+              row={idx}
+              key={idx}
+              invalidWordMessage={invalidWordMessage}
+              currentRow={wordGuesses.row}
+            />
           ))}
         </div>
       </GridColourContext.Provider>
       <div id="keyboard" className="">
         <KeyboardContext.Provider value={keyboardColours}>
-          <Keyboard handleKeyDown={!gameOver ? handleKeyDown : () => {}}/>
+          <Keyboard
+            handleKeyDown={
+              !gameOver && !playWithFriendsPopUp ? handleKeyDown : () => {}
+            }
+          />
         </KeyboardContext.Provider>
       </div>
-      <h1 className="text-[#565758] mt-5">© Josh Rosenfeld</h1>
+      <div className="mt-5 flex justify-center items-center sm:gap-20 gap-10">
+        <h1 className="text-[#565758]">© Josh Rosenfeld</h1>
+        <button
+          className="text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-xl flex justify-center items-center gap-1 transition-all ease-linear duration-100"
+          onClick={!gameOver ? () => setPlayWithFriendsPopUp(true) : () => {}}
+        >
+          Play With Friends
+          <GroupIcon />
+        </button>
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
