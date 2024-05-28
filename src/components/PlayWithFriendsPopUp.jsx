@@ -10,7 +10,9 @@ function PlayWithFriendsPopUp({ visible }) {
   const handleGenerateLink = () => {
     const fetchData = async () => {
       const data = await getWord();
-      setGameLink(`http://localhost:5173/?word=${btoa(data)}`); // TODO: Change from localhost to actual domain
+      setGameLink(
+        `https://josh-rosenfeld-wordle-clone.vercel.app/?word=${btoa(data)}`
+      );
     };
 
     fetchData();
@@ -41,7 +43,7 @@ function PlayWithFriendsPopUp({ visible }) {
         <>
           <a
             href={gameLink}
-            className=" underline font-[600] text-blue-600 mt-4"
+            className=" underline font-[600] text-blue-600 mt-4 text-sm"
           >
             {gameLink}
           </a>
