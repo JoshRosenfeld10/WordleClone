@@ -12,6 +12,7 @@ import checkSearchParams from "../utils/checkSearchParams";
 import setWordToSearchParam from "../utils/setWordToSearchParam";
 import PlayWithFriendsPopUp from "./components/PlayWithFriendsPopUp";
 import GroupIcon from "@mui/icons-material/Group";
+import PlayAgainButton from "./components/PlayAgainButton";
 
 export const GridColourContext = createContext();
 export const KeyboardContext = createContext();
@@ -44,6 +45,9 @@ function App() {
   const [winner, setWinner] = useState(false);
   const [invalidWordMessage, setInvalidWordMessage] = useState(false);
   const [playWithFriendsPopUp, setPlayWithFriendsPopUp] = useState(false);
+  const [gameOverMessageClosed, setGameOverMessageClosed] = useState(false);
+  const [name, setName] = useState("");
+  const [areSearchParams, setAreSearchParams] = useState(false);
 
   // Handle valid word check
   useEffect(() => {
@@ -115,7 +119,8 @@ function App() {
   // Fetch random 5 letter word
   useEffect(() => {
     if (checkSearchParams()) {
-      setWordToSearchParam(setWord);
+      setAreSearchParams(true);
+      setWordToSearchParam(setWord, setName);
     } else {
       const fetchData = async () => {
         const data = await getWord();
@@ -156,7 +161,11 @@ function App() {
         classNames="message"
         unmountOnExit
       >
-        <Message word={word} winner={winner} />
+        <Message
+          word={word}
+          winner={winner}
+          setGameOverMessageClosed={setGameOverMessageClosed}
+        />
       </CSSTransition>
       <CSSTransition
         timeout={500}
@@ -184,8 +193,22 @@ function App() {
       <h1 className="font-extrabold sm:text-6xl text-5xl text-white">
         WORDLE CLONE
       </h1>
+      {areSearchParams && (
+        <h1 className="text-white uppercase font-[600] text-sm">
+          Sent from <span className="text-blue-500">{name}</span>
+        </h1>
+      )}
+      {gameOverMessageClosed && <PlayAgainButton size="small" />}
       <GridColourContext.Provider value={gridColours}>
-        <div className="gap-[.35rem] flex flex-col mt-8 mb-4">
+        <div
+          className={
+            gameOverMessageClosed
+              ? "gap-[.35rem] flex flex-col mt-2 mb-4"
+              : areSearchParams
+              ? "gap-[.35rem] flex flex-col mt-3 mb-4"
+              : "gap-[.35rem] flex flex-col mt-8 mb-4"
+          }
+        >
           {wordGuesses.grid.map((word, idx) => (
             <WordGuess
               letterGuesses={word}
@@ -209,11 +232,11 @@ function App() {
       <div className="mt-5 flex justify-center items-center sm:gap-20 gap-10">
         <h1 className="text-[#565758]">© Josh Rosenfeld</h1>
         <button
-          className="text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-xl flex justify-center items-center gap-1 transition-all ease-linear duration-100"
+          className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-3 rounded-xl flex justify-center items-center gap-1 transition-all ease-linear duration-100 text-sm upp"
           onClick={!gameOver ? () => setPlayWithFriendsPopUp(true) : () => {}}
         >
           Play With Friends
-          <GroupIcon />
+          <GroupIcon fontSize="small" />
         </button>
       </div>
     </div>
