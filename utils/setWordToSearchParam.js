@@ -6,7 +6,7 @@ const setWordToSearchParam = (setWord, setName) => {
   const decodedWord = atob(word);
   setWord(decodedWord);
 
-  const name = urlParams.get("name").replace("_", " ");
+  const name = urlParams.get("name").replaceAll("_", " ");
   setName(name);
 };
 

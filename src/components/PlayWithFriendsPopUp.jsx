@@ -1,5 +1,5 @@
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import getWord from "../../utils/getRandomWord";
 import MenuButton from "./MenuButton";
 
@@ -28,8 +28,11 @@ function PlayWithFriendsPopUp({ visible }) {
   };
 
   const handleChange = (e) => {
-    setName(e.target.value.replace(" ", "_"));
-    setInvalidClick(false);
+    setName(e.target.value.replaceAll(" ", "_"));
+
+    e.target.value.length <= 25
+      ? setInvalidClick(false)
+      : setInvalidClick(true);
   };
 
   return (
@@ -59,18 +62,20 @@ function PlayWithFriendsPopUp({ visible }) {
             />
             {invalidClick && (
               <h1 className="text-red-500 text-xs italic mt-1">
-                Please enter a name.
+                {name.length === 0
+                  ? "Please enter a name."
+                  : "Name is too long."}
               </h1>
             )}
           </div>
           <button
             className={
-              name
+              name && name.length <= 25
                 ? "bg-blue-600 hover:bg-blue-700 flex justify-center items-center gap-1 py-2 px-5 rounded-lg text-white transition-all ease-linear duration-100 font-[600] mt-2 uppercase"
                 : "bg-gray-300  flex justify-center items-center gap-1 py-2 px-5 rounded-lg text-gray-400 transition-all ease-linear duration-100 font-[600] mt-2 uppercase cursor-not-allowed"
             }
             onClick={
-              name
+              name && name.length <= 25
                 ? handleGenerateLink
                 : () => {
                     setInvalidClick(true);
