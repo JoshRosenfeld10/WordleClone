@@ -25,31 +25,27 @@ const loserMessages = [
   "That was embarrassing...",
 ];
 
-function Message({ winner, word, setGameOverMessageClosed, gameOver }) {
+function Message({
+  winner,
+  word,
+  gameOverMessageVisible,
+  setGameOverMessageVisible,
+}) {
   const winnerEmoji = useRef(randomItem(winnerEmojis));
   const winnerMessage = useRef(randomItem(winnerMessages));
   const loserEmoji = useRef(randomItem(loserEmojis));
   const loserMessage = useRef(randomItem(loserMessages));
 
-  const [visible, setVisible] = useState(false);
-
   const handleCloseClick = () => {
-    setVisible(false);
-    setGameOverMessageClosed(true);
+    setGameOverMessageVisible(false);
   };
-
-  useEffect(() => {
-    if (gameOver) {
-      setVisible(true);
-    }
-  }, [gameOver]);
 
   return (
     <div className="flex justify-center items-center absolute z-10">
       {winner && <Confetti />}
       <CSSTransition
         timeout={500}
-        in={visible}
+        in={gameOverMessageVisible}
         classNames="message"
         unmountOnExit
       >

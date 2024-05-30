@@ -45,9 +45,9 @@ function App() {
   const [winner, setWinner] = useState(false);
   const [invalidWordMessage, setInvalidWordMessage] = useState(false);
   const [playWithFriendsPopUp, setPlayWithFriendsPopUp] = useState(false);
-  const [gameOverMessageClosed, setGameOverMessageClosed] = useState(false);
   const [name, setName] = useState("");
   const [areSearchParams, setAreSearchParams] = useState(false);
+  const [gameOverMessageVisible, setGameOverMessageVisible] = useState(false);
 
   // Handle valid word check
   useEffect(() => {
@@ -143,12 +143,14 @@ function App() {
       }
       if (solved) {
         setGameOver(true);
+        setGameOverMessageVisible(true);
         setWinner(true);
       }
     });
 
     if (wordGuesses.row === 6) {
       setGameOver(true);
+      setGameOverMessageVisible(true);
       return;
     }
   }, [gridColours]);
@@ -158,8 +160,8 @@ function App() {
       <Message
         word={word}
         winner={winner}
-        setGameOverMessageClosed={setGameOverMessageClosed}
-        gameOver={gameOver}
+        gameOverMessageVisible={gameOverMessageVisible}
+        setGameOverMessageVisible={setGameOverMessageVisible}
       />
 
       <CSSTransition
@@ -193,11 +195,11 @@ function App() {
           Sent from <span className="text-blue-500">{name}</span>
         </h1>
       )}
-      {gameOverMessageClosed && <PlayAgainButton size="small" />}
+      {gameOver && !gameOverMessageVisible && <PlayAgainButton size="small" />}
       <GridColourContext.Provider value={gridColours}>
         <div
           className={
-            gameOverMessageClosed
+            gameOver && !gameOverMessageVisible
               ? "gap-[.35rem] flex flex-col mt-2 mb-4"
               : areSearchParams
               ? "gap-[.35rem] flex flex-col mt-3 mb-4"
