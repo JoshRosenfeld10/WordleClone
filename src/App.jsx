@@ -155,18 +155,13 @@ function App() {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen w-screen bg-[#121213]">
-      <CSSTransition
-        timeout={500}
-        in={gameOver}
-        classNames="message"
-        unmountOnExit
-      >
-        <Message
-          word={word}
-          winner={winner}
-          setGameOverMessageClosed={setGameOverMessageClosed}
-        />
-      </CSSTransition>
+      <Message
+        word={word}
+        winner={winner}
+        setGameOverMessageClosed={setGameOverMessageClosed}
+        gameOver={gameOver}
+      />
+
       <CSSTransition
         timeout={500}
         in={playWithFriendsPopUp}
@@ -232,7 +227,11 @@ function App() {
       <div className="mt-5 flex justify-center items-center sm:gap-20 gap-10">
         <h1 className="text-[#565758]">© Josh Rosenfeld</h1>
         <button
-          className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-3 rounded-xl flex justify-center items-center gap-1 transition-all ease-linear duration-100 text-sm upp"
+          className={
+            !gameOver
+              ? "text-white bg-blue-600 hover:bg-blue-700 py-2 px-3 rounded-xl flex justify-center items-center gap-1 transition-all ease-linear duration-100 text-sm cursor-pointer"
+              : "text-white bg-blue-600 opacity-20 py-2 px-3 rounded-xl flex justify-center items-center gap-1 transition-all ease-linear duration-100 text-sm cursor-not-allowed"
+          }
           onClick={!gameOver ? () => setPlayWithFriendsPopUp(true) : () => {}}
         >
           Play With Friends

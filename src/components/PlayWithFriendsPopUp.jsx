@@ -28,7 +28,7 @@ function PlayWithFriendsPopUp({ visible }) {
   };
 
   const handleChange = (e) => {
-    setName(e.target.value);
+    setName(e.target.value.replace(" ", "_"));
     setInvalidClick(false);
   };
 
@@ -39,7 +39,9 @@ function PlayWithFriendsPopUp({ visible }) {
       </button>
       <h1 className="text-2xl font-[600]">Make Random Wordle Game</h1>
       <h1 className=" text-center text-sm">
-        Generate a game link with a random word for you and your friends!
+        {linkGenerated
+          ? "Link Generated!"
+          : "Generate a game link with a random word for you and your friends!"}
       </h1>
       {!linkGenerated ? (
         <>
