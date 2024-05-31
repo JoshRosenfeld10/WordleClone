@@ -156,7 +156,7 @@ function App() {
   }, [gridColours]);
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-screen bg-[#121213]">
+    <div className="flex flex-col justify-center items-center h-svh w-svh bg-[#121213]">
       <Message
         word={word}
         winner={winner}
@@ -187,7 +187,7 @@ function App() {
           Invalid Word 🤔
         </div>
       </CSSTransition>
-      <h1 className="font-extrabold sm:text-6xl text-5xl text-white">
+      <h1 className="font-extrabold sm:text-6xl xs:text-5xl text-4xl text-white">
         WORDLE CLONE
       </h1>
       {areSearchParams && (
@@ -200,10 +200,10 @@ function App() {
         <div
           className={
             gameOver && !gameOverMessageVisible
-              ? "gap-[.35rem] flex flex-col mt-2 mb-4"
+              ? "gap-[.35rem] flex flex-col xs:mt-2 mt-1 mb-4"
               : areSearchParams
-              ? "gap-[.35rem] flex flex-col mt-3 mb-4"
-              : "gap-[.35rem] flex flex-col mt-8 mb-4"
+              ? "gap-[.35rem] flex flex-col xs:mt-3 mt-2 mb-4"
+              : "gap-[.35rem] flex flex-col xs:mt-8 mt-4 mb-4"
           }
         >
           {wordGuesses.grid.map((word, idx) => (
@@ -227,14 +227,20 @@ function App() {
         </KeyboardContext.Provider>
       </div>
       <div className="mt-5 flex justify-center items-center sm:gap-20 gap-10">
-        <h1 className="text-[#565758]">© Josh Rosenfeld</h1>
+        <h1 className="text-[#565758] xs:text-base text-sm">
+          © Josh Rosenfeld
+        </h1>
         <button
           className={
-            !gameOver
-              ? "text-white bg-blue-600 hover:bg-blue-700 py-2 px-3 rounded-xl flex justify-center items-center gap-1 transition-all ease-linear duration-100 text-sm cursor-pointer"
-              : "text-white bg-blue-600 opacity-20 py-2 px-3 rounded-xl flex justify-center items-center gap-1 transition-all ease-linear duration-100 text-sm cursor-not-allowed"
+            !gameOverMessageVisible
+              ? "text-white bg-blue-600 hover:bg-blue-700 xs:py-2 px-3 py-1.5 rounded-xl flex justify-center items-center gap-1 transition-all ease-linear duration-100 xs:text-sm text-xs cursor-pointer"
+              : "text-white bg-blue-600 opacity-20 py-2 px-3 rounded-xl flex justify-center items-center gap-1 transition-all ease-linear duration-100 xs:text-sm text-xs cursor-not-allowed"
           }
-          onClick={!gameOver ? () => setPlayWithFriendsPopUp(true) : () => {}}
+          onClick={
+            !gameOverMessageVisible
+              ? () => setPlayWithFriendsPopUp(true)
+              : () => {}
+          }
         >
           Play With Friends
           <GroupIcon fontSize="small" />

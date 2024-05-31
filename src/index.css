@@ -32,6 +32,32 @@ body {
   transition-timing-function: linear;
 }
 
+.game-over-message-enter {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.game-over-message-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-timing-function: linear;
+}
+
+.game-over-message-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.game-over-message-exit-active {
+  opacity: 0;
+  transform: scale(0.85);
+  transition-property: all;
+  transition-duration: 150ms;
+  transition-timing-function: linear;
+}
+
 .letter-reveal {
   border-width: 2px;
   border-color: #565758;

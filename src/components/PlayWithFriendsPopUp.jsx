@@ -1,26 +1,40 @@
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import getWord from "../../utils/getRandomWord";
 import MenuButton from "./MenuButton";
+import { CircularProgress } from "@mui/material";
 
 function PlayWithFriendsPopUp({ visible }) {
   const [gameLink, setGameLink] = useState("");
-  const [linkGenerated, setLinkGenerated] = useState(false);
+  const [islinkGenerated, setIsLinkGenerated] = useState(false);
   const [name, setName] = useState("");
   const [invalidClick, setInvalidClick] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGenerateLink = () => {
     const fetchData = async () => {
-      const data = await getWord();
-      setGameLink(
-        `https://josh-rosenfeld-wordle-clone.vercel.app/?word=${btoa(
-          data
-        )}&name=${name.toLowerCase()}`
-      );
+      try {
+        setIsLoading(true);
+
+        // Extend loading time to at least half a second
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
+
+        const data = await getWord();
+        setGameLink(
+          `https://josh-rosenfeld-wordle-clone.vercel.app/?word=${btoa(
+            data
+          )}&name=${name.toLowerCase()}`
+        );
+        setIsLinkGenerated(true);
+      } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+      }
     };
 
     fetchData();
-    setLinkGenerated(true);
   };
 
   const handleCopyClick = () => {
@@ -36,17 +50,18 @@ function PlayWithFriendsPopUp({ visible }) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center bg-white/90 absolute sm:w-[500px] w-[365px] py-8 rounded-xl shadow-xl z-10">
+    <div className="flex flex-col justify-center items-center bg-white/90 absolute xs:w-[365px] sm:w-[500px] w-[325px] h-[238px] py-8 rounded-xl shadow-xl z-10">
       <button onClick={() => visible(false)}>
         <HighlightOffIcon className="absolute right-3 top-3 text-[#817e7e] hover:text-black cursor-pointer" />
       </button>
       <h1 className="text-2xl font-[600]">Make Random Wordle Game</h1>
       <h1 className=" text-center text-sm">
-        {linkGenerated
-          ? "Link Generated!"
-          : "Generate a game link with a random word for you and your friends!"}
+        {!isLoading &&
+          (islinkGenerated
+            ? "Link Generated!"
+            : "Generate a game link with a random word for you and your friends!")}
       </h1>
-      {!linkGenerated ? (
+      {!isLoading && !islinkGenerated ? (
         <>
           <div>
             <input
@@ -85,15 +100,19 @@ function PlayWithFriendsPopUp({ visible }) {
             Generate Link
           </button>
         </>
+      ) : isLoading ? (
+        <div className=" my-12">
+          <CircularProgress />
+        </div>
       ) : (
         <>
           <a
             href={gameLink}
-            className=" underline font-[600] text-blue-600 mt-4 text-sm text-center"
+            className=" underline font-[600] text-blue-600 mt-[1.35rem] text-sm text-center"
           >
             {gameLink}
           </a>
-          <div className="flex gap-2 mt-2">
+          <div className="flex gap-2 mt-5">
             <MenuButton type="Copy Link" onClick={handleCopyClick} />
             <a href={gameLink}>
               <MenuButton type="Play" />
