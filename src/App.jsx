@@ -183,7 +183,7 @@ function App() {
         }
         unmountOnExit
       >
-        <div className="text-black bg-white absolute text-lg font-bold p-2 rounded-lg shadow-lg sm:top-[15%] top-[20%] z-10">
+        <div className="text-black bg-white absolute text-lg font-bold p-2 rounded-lg shadow-lg sm:top-[15%] xs:top-[20%] top-[15%] z-10">
           Invalid Word 🤔
         </div>
       </CSSTransition>
