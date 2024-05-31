@@ -49,7 +49,7 @@ function Message({
         classNames="game-over-message"
         unmountOnExit
       >
-        <div className="flex flex-col justify-center items-center absolute bg-white/90 sm:w-[500px] w-[325px] xs:[365px] py-8 rounded-xl shadow-xl z-10">
+        <div className="flex flex-col justify-center items-center absolute bg-white/90 sm:w-[500px] w-[340px] xs:[365px] py-8 rounded-xl shadow-xl z-10">
           <button onClick={handleCloseClick}>
             <HighlightOffIcon className="absolute right-3 top-3 text-[#817e7e] hover:text-black cursor-pointer" />
           </button>

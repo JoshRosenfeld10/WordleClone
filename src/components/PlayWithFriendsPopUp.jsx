@@ -50,7 +50,7 @@ function PlayWithFriendsPopUp({ visible }) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center bg-white/90 absolute xs:w-[365px] sm:w-[500px] w-[325px] h-[238px] py-8 rounded-xl shadow-xl z-10">
+    <div className="flex flex-col justify-center items-center bg-white/90 absolute xs:w-[365px] sm:w-[500px] w-[340px] h-[238px] py-8 rounded-xl shadow-xl z-10">
       <button onClick={() => visible(false)}>
         <HighlightOffIcon className="absolute right-3 top-3 text-[#817e7e] hover:text-black cursor-pointer" />
       </button>
