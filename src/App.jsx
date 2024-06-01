@@ -13,6 +13,7 @@ import setWordToSearchParam from "../utils/setWordToSearchParam";
 import PlayWithFriendsPopUp from "./components/PlayWithFriendsPopUp";
 import GroupIcon from "@mui/icons-material/Group";
 import PlayAgainButton from "./components/PlayAgainButton";
+import Header from "./components/Header";
 
 export const GridColourContext = createContext();
 export const KeyboardContext = createContext();
@@ -187,9 +188,7 @@ function App() {
           Invalid Word 🤔
         </div>
       </CSSTransition>
-      <h1 className="font-extrabold sm:text-6xl xs:text-5xl text-4xl text-white">
-        WORDLE CLONE
-      </h1>
+      <Header />
       {areSearchParams && (
         <h1 className="text-white uppercase font-[600] text-sm">
           Sent from <span className="text-blue-500">{name}</span>
