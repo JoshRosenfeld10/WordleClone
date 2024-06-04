@@ -40,7 +40,7 @@ function PlayWithFriendsPopUp({ visible }) {
   const handleCopyClick = () => {
     if (navigator.share) {
       navigator.share({
-        text: `Play ${name} in Wordle!`,
+        text: `Play ${name.replaceAll("_", "")} in Wordle!`,
         url: gameLink,
         title: "Wordle Clone",
       });
