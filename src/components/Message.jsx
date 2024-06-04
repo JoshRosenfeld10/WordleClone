@@ -4,6 +4,7 @@ import "../index.css";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import PlayAgainButton from "./PlayAgainButton";
 import { CSSTransition } from "react-transition-group";
+import ShareButton from "./ShareButton";
 
 const randomItem = (items) => {
   return items[Math.floor(Math.random() * items.length)];
@@ -66,7 +67,8 @@ function Message({
               <span className="font-bold text-lg">{word.toUpperCase()}</span>
             </h1>
           )}
-          <div className="mt-4">
+          <div className="mt-4 flex sm:flex-row flex-col gap-2">
+            {navigator.share && <ShareButton winner={winner} />}
             <PlayAgainButton size="big" />
           </div>
         </div>

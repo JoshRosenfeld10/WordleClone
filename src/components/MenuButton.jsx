@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import EastIcon from "@mui/icons-material/East";
+import ShareIcon from "@mui/icons-material/Share";
 
 const styles = {
   "Copy Link":
@@ -7,6 +8,8 @@ const styles = {
   Play: "bg-green-600 hover:bg-green-700 text-white py-2 w-32 rounded-lg font-[600] flex justify-center items-center gap-2 transition-all ease-linear duration-100",
   Copied:
     "bg-[#808384] text-white py-2 w-32 rounded-lg font-[600] flex justify-center items-center gap-2 transition-all ease-linear duration-100",
+  "Share Link":
+    "bg-blue-600 hover:bg-blue-700 text-white py-2 w-32 rounded-lg font-[600] flex justify-center items-center gap-2 transition-all ease-linear duration-100",
 };
 
 function MenuButton({ type, onClick }) {
@@ -24,10 +27,15 @@ function MenuButton({ type, onClick }) {
   return (
     <button
       className={styles[styleState]}
-      onClick={styleState === "Copy Link" ? handleOnClick : () => {}}
+      onClick={
+        styleState === "Copy Link" || styleState === "Share Link"
+          ? handleOnClick
+          : () => {}
+      }
     >
       {text}
       {type === "Play" && <EastIcon fontSize="small" />}
+      {type === "Share Link" && <ShareIcon fontSize="small" />}
     </button>
   );
 }

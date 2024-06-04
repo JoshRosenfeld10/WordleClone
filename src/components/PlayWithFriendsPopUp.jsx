@@ -38,7 +38,15 @@ function PlayWithFriendsPopUp({ visible }) {
   };
 
   const handleCopyClick = () => {
-    navigator.clipboard.writeText(gameLink);
+    if (navigator.share) {
+      navigator.share({
+        text: `Play ${name} in Wordle!`,
+        url: gameLink,
+        title: "Wordle Clone",
+      });
+    } else {
+      navigator.clipboard.writeText(gameLink);
+    }
   };
 
   const handleChange = (e) => {
@@ -113,7 +121,10 @@ function PlayWithFriendsPopUp({ visible }) {
             {gameLink}
           </a>
           <div className="flex gap-2 mt-5">
-            <MenuButton type="Copy Link" onClick={handleCopyClick} />
+            <MenuButton
+              type={navigator.share ? "Share Link" : "Copy Link"}
+              onClick={handleCopyClick}
+            />
             <a href={gameLink}>
               <MenuButton type="Play" />
             </a>

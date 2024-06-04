@@ -158,12 +158,14 @@ function App() {
 
   return (
     <div className="flex flex-col justify-center items-center h-svh w-svh bg-[#121213]">
-      <Message
-        word={word}
-        winner={winner}
-        gameOverMessageVisible={gameOverMessageVisible}
-        setGameOverMessageVisible={setGameOverMessageVisible}
-      />
+      <GridColourContext.Provider value={gridColours}>
+        <Message
+          word={word}
+          winner={winner}
+          gameOverMessageVisible={gameOverMessageVisible}
+          setGameOverMessageVisible={setGameOverMessageVisible}
+        />
+      </GridColourContext.Provider>
 
       <CSSTransition
         timeout={500}
