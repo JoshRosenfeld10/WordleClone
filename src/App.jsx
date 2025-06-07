@@ -76,7 +76,15 @@ function App() {
         let row = prev.row;
         let col = prev.col;
 
-        enterKey(key, grid, row, col, setIsValidWord, setInvalidWordMessage);
+        enterKey(
+          key,
+          grid,
+          row,
+          col,
+          setIsValidWord,
+          setInvalidWordMessage,
+          word
+        );
 
         if (key === "BACKSPACE" && col !== 0) {
           col--;
@@ -101,7 +109,7 @@ function App() {
         };
       });
     },
-    [setGameOver]
+    [setGameOver, word]
   );
 
   // Handle keyboard inputs
